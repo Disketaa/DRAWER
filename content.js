@@ -1,3 +1,17 @@
+const style = document.createElement('style');
+style.textContent = `
+  button[title="Нарисовать баннер"]:hover {
+    background: linear-gradient(135deg, #a78bfa, #f472b6);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 0 18px rgba(167, 139, 250, 0.6);
+  }
+  button[title="Нарисовать баннер"]:hover svg path {
+    fill: white;
+  }
+`;
+document.head.appendChild(style);
+
 function inject(container) {
   if (container.querySelector('[data-bb]')) return;
 
