@@ -5,7 +5,7 @@ function inject(container) {
   if (!ref) return;
 
   const btn = document.createElement('button');
-  btn.textContent = '📦 Отрисовать баннер';
+  btn.textContent = '🤖 Отрисовать баннер';
   btn.dataset.bb = '1';
   btn.className = ref.className;
 
@@ -16,7 +16,7 @@ function inject(container) {
 
 function findAndInject() {
   const canvas = document.querySelector('canvas');
-  if (!canvas) return false;
+  if (!canvas) return;
 
   let node = canvas.parentElement;
   while (node) {
@@ -26,17 +26,14 @@ function findAndInject() {
           child.children[0]?.tagName === 'BUTTON' &&
           child.children[1]?.tagName === 'BUTTON') {
         inject(child);
-        return true;
+        return;
       }
     }
     node = node.parentElement;
   }
-  return false;
 }
 
-if (!findAndInject()) {
-  const observer = new MutationObserver(() => {
-    if (findAndInject()) observer.disconnect();
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-}
+findAndInject();
+
+new MutationObserver(findAndInject)
+    .observe(document.body, { childList: true, subtree: true });
