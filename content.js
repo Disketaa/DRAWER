@@ -15,13 +15,21 @@ function inject(container) {
 }
 
 function findAndInject() {
-  for (const el of document.querySelectorAll('div')) {
-    if (el.children.length === 2 &&
-        el.children[0]?.tagName === 'BUTTON' &&
-        el.children[1]?.tagName === 'BUTTON') {
-      inject(el);
-      return true;
+  const canvas = document.querySelector('canvas');
+  if (!canvas) return false;
+
+  let node = canvas.parentElement;
+  while (node) {
+    for (const child of node.children) {
+      if (child.tagName === 'DIV' &&
+          child.children.length === 2 &&
+          child.children[0]?.tagName === 'BUTTON' &&
+          child.children[1]?.tagName === 'BUTTON') {
+        inject(child);
+        return true;
+      }
     }
+    node = node.parentElement;
   }
   return false;
 }
